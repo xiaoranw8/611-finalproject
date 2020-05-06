@@ -1,0 +1,32 @@
+body {
+    padding: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+
+.sidebar {
+    position: absolute;
+    background-color: rgba(254, 245, 245, 0.7);
+    left: 30px;
+    width: 400px;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 60px;
+}
+
+.map {
+    position: absolute;
+    right: 0px;
+    left: 400px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+
+/* legend reference: https://gist.github.com/datapolitan/47bc614cd271ade28fa7 */
+/* side bar solution: https://stackoverflow.com/questions/45124418/i-am-having-a-difficult-time-putting-my-sidebar-next-to-my-google-maps-gmaps4r */

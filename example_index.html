@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" integrity="sha256-iYUgmrapfDGvBrePJPrMWQZDcObdAcStKBpjP3Az+3s=" crossorigin="anonymous" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
+    <!-- Place framework CSS code here. -->
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style_ex.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class='absolute fl my24 mx24 py24 px24 bg-gray-faint round'>
+  <form id='params'>
+    <h4 class='txt-m txt-bold mb6'>Chose a travel mode:</h4>
+    <div class='mb12 mr12 toggle-group align-center'>
+      <label class='toggle-container'>
+        <input name='profile' type='radio' value='walking'>
+        <div class='toggle toggle--active-null toggle--null'>Walking</div>
+      </label>
+      <label class='toggle-container'>
+        <input name='profile' type='radio' value='cycling' checked>
+        <div class='toggle toggle--active-null toggle--null'>Cycling</div>
+      </label>
+      <label class='toggle-container'>
+        <input name='profile' type='radio' value='driving'>
+        <div class='toggle toggle--active-null toggle--null'>Driving</div>
+      </label>
+    </div>
+    <h4 class='txt-m txt-bold mb6'>Chose a maximum duration:</h4>
+    <div class='mb12 mr12 toggle-group align-center'>
+      <label class='toggle-container'>
+        <input name='duration' type='radio' value='10' checked>
+        <div class='toggle toggle--active-null toggle--null'>10 min</div>
+      </label>
+      <label class='toggle-container'>
+        <input name='duration' type='radio' value='20'>
+        <div class='toggle toggle--active-null toggle--null'>20 min</div>
+      </label>
+      <label class='toggle-container'>
+        <input name='duration' type='radio' value='30'>
+        <div class='toggle toggle--active-null toggle--null'>30 min</div>
+      </label>
+  </form>
+</div>
+    <!-- <div class="sidebar">
+      <h1 id="intro">Philly Grocery Landscape</h1>
+    </div> -->
+
+    <!-- Map -->
+    <div id="map" class="map">
+    </div>
+
+    <!-- Javascript Imports -->
+    <script src="js/jquery-2.2.0.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js" integrity="sha256-CNm+7c26DTTCGRQkM9vp7aP85kHFMqs9MhPEuytF+fQ=" crossorigin="anonymous"></script>
+
+    <!-- Place framework JS code here. -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="js/example.js"></script>
+<!--    <script src="js_midterm/midtermFunctions.js"></script> -->
+
+  </body>
+</html>
