@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <!-- CSS Imports -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" integrity="sha256-iYUgmrapfDGvBrePJPrMWQZDcObdAcStKBpjP3Az+3s=" crossorigin="anonymous" />
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" integrity="sha256-iYUgmrapfDGvBrePJPrMWQZDcObdAcStKBpjP3Az+3s=" crossorigin="anonymous" />
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/css/mdb.min.css" /> -->
@@ -34,19 +33,47 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <h1 id="intro" style="font-size:30px;">Philly Grocery Landscape</h1>
+        <h1 id="intro" style="font-size:30px; font-family:Segoe UI Black; color:#466463;"> Philly Grocery Landscape</h1>
         <!-- dropdown selection -->
         <div class="input-group">
-          <select id="nhselection" class="custom-select" id="neighbor-dropdown" aria-label="Example select with button addon">
-            <option value="" selected="true" disabled>Select neighborhood...</option>
-            <option value="PENNYPACK_PARK">Pennypack Park</option>
-            <option value="OVERBROOK">Overbrook</option>
-            <option value="GERMANTOWN_SOUTHWEST">Southwest Germantown</option>
+          <select id="nhselection" class="custom-select" aria-label="Example select with button addon">
+            <option value="" selected="true" disabled>Select district...</option>
+            <option value="CENTER_CITY">Center City</option>
+            <option value="NORTHEAST_AIRPORT">Far Northeast Philadelphia</option>
+            <option value="MOUNT_AIRY_WEST">Germantown/Chestnut Hill</option>
+            <option value="PORT_RICHMOND">Kensington</option>
+            <option value="BREWERYTOWN">Lower North Philadelphia</option>
+            <option value="MAYFAIR">Near Northeast Philadelphia</option>
+            <option value="FERN_ROCK">Onley/Oak Lane</option>
+            <option value="DEARNLEY_PARK">Roxborough/Manayunk</option>
+            <option value="PASSYUNK_SQUARE">South Philadelphia</option>
+            <option value="EASTWICK">Southwest Philadelphia</option>
+            <option value="TIOGA">Uper North Philadelphia</option>
+            <option value="CARROLL_PARK">West Philadelphia</option>
+
           </select>
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button">
               <span class="fa fa-search" aria-hidden="true"></span>
             </button>
+          </div>
+        </div>
+        <!-- add layer button -->
+          <h2 style="color:#3F5254; font-size:17px">Add Neighborhood Layer</h2>
+          <label class="switch">
+            <input type="checkbox" id='nLayer'>
+            <span class="slider round"></span>
+          </label>
+
+        <!-- title and info bar -->
+        <div class='helperContainer'>
+          <div id="helperTitle">
+          <p style="color:#38AAB8; font-size:20px; font-weight: bold;">Site accessibility</p>
+          </div>
+          <div id="helperIcon" style="font-size: 1rem;">
+            <a href="#">
+               <i class="fa fa-info-circle fa-lg" data-toggle="tooltip" title="If the access area does not generate properly, try to zoom out, click more points, or refresh the page. Detailed reasons refer to js file"> </i>
+            </a>
           </div>
         </div>
         <!-- modes -->
@@ -73,9 +100,14 @@
             <input type="radio" name="duration" value="20" autocomplete="off"> 20 min
           </label>
         </div>
+        <!-- show current iso area -->
+        <div>
+          <label id='area'></label>
+        </div>
+
         <!-- info table -->
         <div>
-        <label id='message' class='message'>Click locaton for more information</label>
+        <label id='message' class='message'>Click locaton for grocery information</label>
         </div>
         <div id='detail' style="display:none">
           <h6 id='groname' class='thename'></h6>
@@ -87,10 +119,10 @@
             <tbody>
               <tr>
                 <td>Address</td>
-                <td id='address'></td>
+                <td id='address' width = "80%"></td>
               </tr>
               <tr>
-                <td>Neighborhood</td>
+                <td width="30%">Neighborhood</td>
                 <td id='neighborhood'></td>
               </tr>
               <tr>
@@ -104,13 +136,42 @@
             </tbody>
           </table>
         </div>
-        <!-- reset the map -->
-        <!-- <button id = "clear">reset</button> -->
+
         <!-- locate user -->
+        <div class="userContainer">
+        <h1 style="color:#3F5254; font-size:15px">Explore your surrounding grocery locations!</h1>
         <button type="button" class="btn btn-info" id="geolocate">Find me</button>
+        </div>
       </div>
     </div>
 
+    <!-- project intro -->
+    <div class="modal fade" id="introModal" role="dialog" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Project Introduction</h4>
+          </div>
+          <div class="modal-body">
+            <p>The app enables users to explore the distribution and accessibility of Philadelphia grocery locations.
+              It would be an auxiliary tool to conduct the site selection or suitability analysis for new grocery businesses. <br></p>
+            <p style="font-weight: 630;" >District selector</p>
+            <p><li > Selects the City council district to view local-level distribution. The neighborhood layer is available as a reference.</li></p>
+
+            <p style="font-weight: 630;" > Access area</p>
+            <p><li> Allows users to view the access area around each location. It works better when zooming out to the full extent of the city.
+                    Detailed troubleshooting methods are available at the info button. </li></p>
+
+             <p style="font-weight: 630;" > Geolocate</p>
+             <p><li> Users can trigger the geolocating button to find out surrounding grocery locations.
+                    The true locating button is at the <strong>top-right</strong> corner. </li></p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" style="font-weight: bold;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <!-- Javascript Imports -->
