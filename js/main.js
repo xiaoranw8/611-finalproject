@@ -59,6 +59,7 @@ $('#geolocate').on('click', function(){
   });
 });
 
+var hoveredStateId = null;
 
 
 $(document).ready(function() {
@@ -87,24 +88,58 @@ $(document).ready(function() {
     });
     map.addLayer({
       'id': 'hood',
-      'type': 'fill',
+      'type': 'line',
       'source': 'hood',
       'layout': {}, //"visibility":"none"
       'paint': {
-        'fill-color': 'rgba(200, 100, 240, 0)',
-        'fill-outline-color': 'rgba(0, 25, 146, 0)'
+        'line-color': 'rgba(78, 102, 109, 0)', // 'fill-color': 'rgba(200, 100, 240, 0)',
+        'line-width': 1   // 'fill-outline-color': 'rgba(0, 25, 146, 0)'
       }
     });
 
     // toggle button to change visibility
     $("#nLayer").on('change', function(){
       if($(this).prop("checked") == true){
-        map.setPaintProperty('hood', 'fill-outline-color', 'rgba(78, 102, 109, 1)');
+        map.setPaintProperty('hood', 'line-color', 'rgba(78, 102, 109, 1)');
       } else {
-        map.setPaintProperty('hood', 'fill-outline-color', 'rgba(0, 25, 146, 0)');
+        map.setPaintProperty('hood', 'line-color', 'rgba(0, 25, 146, 0)');
       }
     });
 
+    var quakeID = null;
+
+    map.on('mousemove', 'earthquakes-viz', function(e) {
+
+      map.getCanvas().style.cursor = 'pointer';
+      // Check whether features exist
+      if (e.features.length > 0) {
+        // Display the magnitude, location, and time in the sidebar
+        magDisplay.textContent = quakeMagnitude;
+        locDisplay.textContent = quakeLocation;
+        dateDisplay.textContent = quakeDate;
+
+        // If quakeID for the hovered feature is not null,
+        // use removeFeatureState to reset to the default behavior
+        if (quakeID) {
+          map.removeFeatureState({
+            source: "earthquakes",
+            id: quakeID
+          });
+        }
+
+        quakeID = e.features[0].id;
+
+        // When the mouse moves over the earthquakes-viz layer, update the
+        // feature state for the feature under the mouse
+        map.setFeatureState({
+          source: 'earthquakes',
+          id: quakeID,
+        }, {
+          hover: true
+        });
+
+      }
+    });
 
     // add market locations
     map.addSource('location', {
